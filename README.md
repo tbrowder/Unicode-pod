@@ -2,7 +2,7 @@
 
 The files and scripts in this repo were used to
 create the Unicode opener chars pod page for
-the Raku docs (https;//github.com/Raku/doc).
+the Raku docs (https//github.com/Raku/doc).
 
 It was originally used with a **UCD.v10.0/** sub-directory obtained
 from the Unicode Consortium's website.
