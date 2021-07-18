@@ -1,0 +1,30 @@
+    #=== 26 total chars =========
+    #=== 2 total no-break chars:
+    # 0x00A0 NO-BREAK SPACE ; Zs ; \h space char
+    # 0x202F NARROW NO-BREAK SPACE ; Zs ; \h space char
+    #=== 7 total vertical chars:
+    # 0x000A <control-000A> ; alias: NEW LINE ; Cc ; \v space char
+    # 0x000B <control-000B> ; alias: VERTICAL TABULATION ; Cc ; \v space char
+    # 0x000C <control-000C> ; alias: FORM FEED ; Cc ; \v space char
+    # 0x000D <control-000D> ; alias: CARRIAGE RETURN ; Cc ; \v space char
+    # 0x0085 <control-0085> ; alias: NEXT LINE ; Cc ; \v space char
+    # 0x2028 LINE SEPARATOR ; Zl ; \v space char
+    # 0x2029 PARAGRAPH SEPARATOR ; Zp ; \v space char
+    #=== 17 total horizontal chars:
+    # 0x0009 <control-0009> ; alias: HORIZONTAL TABULATION; ; Cc ; \h space char
+    # 0x0020 SPACE ; Zs ; \h space char
+    # 0x1680 OGHAM SPACE MARK ; Zs ; \h space char
+    # 0x180E MONGOLIAN VOWEL SEPARATOR ; Cf ; \h space char
+    # 0x2000 EN SPACE ; Zs ; \h space char
+    # 0x2001 EM SPACE ; Zs ; \h space char
+    # 0x2002 EN SPACE ; Zs ; \h space char
+    # 0x2003 EM SPACE ; Zs ; \h space char
+    # 0x2004 THREE-PER-EM SPACE ; Zs ; \h space char
+    # 0x2005 FOUR-PER-EM SPACE ; Zs ; \h space char
+    # 0x2006 SIX-PER-EM SPACE ; Zs ; \h space char
+    # 0x2007 FIGURE SPACE ; Zs ; \h space char
+    # 0x2008 PUNCTUATION SPACE ; Zs ; \h space char
+    # 0x2009 THIN SPACE ; Zs ; \h space char
+    # 0x200A HAIR SPACE ; Zs ; \h space char
+    # 0x205F MEDIUM MATHEMATICAL SPACE ; Zs ; \h space char
+    # 0x3000 IDEOGRAPHIC SPACE ; Zs ; \h space char

@@ -1,0 +1,93 @@
+1. unicode hex char 0x0020
+  name: SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+2. unicode hex char 0x00A0
+  name: NO-BREAK SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+3. unicode hex char 0x1680
+  name: OGHAM SPACE MARK
+  has Z property
+  has Zs property
+  is an \h space char
+4. unicode hex char 0x2000
+  name: EN SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+5. unicode hex char 0x2001
+  name: EM SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+6. unicode hex char 0x2002
+  name: EN SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+7. unicode hex char 0x2003
+  name: EM SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+8. unicode hex char 0x2004
+  name: THREE-PER-EM SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+9. unicode hex char 0x2005
+  name: FOUR-PER-EM SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+10. unicode hex char 0x2006
+  name: SIX-PER-EM SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+11. unicode hex char 0x2007
+  name: FIGURE SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+12. unicode hex char 0x2008
+  name: PUNCTUATION SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+13. unicode hex char 0x2009
+  name: THIN SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+14. unicode hex char 0x200A
+  name: HAIR SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+15. unicode hex char 0x2028
+  name: LINE SEPARATOR
+  has Z property
+  is a \v space char
+16. unicode hex char 0x2029
+  name: PARAGRAPH SEPARATOR
+  has Z property
+  is a \v space char
+17. unicode hex char 0x202F
+  name: NARROW NO-BREAK SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+18. unicode hex char 0x205F
+  name: MEDIUM MATHEMATICAL SPACE
+  has Z property
+  has Zs property
+  is an \h space char
+19. unicode hex char 0x3000
+  name: IDEOGRAPHIC SPACE
+  has Z property
+  has Zs property
+  is an \h space char
