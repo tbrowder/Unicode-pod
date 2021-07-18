@@ -10,6 +10,7 @@ from the Unicode Consortium's website.
 and thus is not included in this repo.)
 
 The pod table should probably be updated with the
-latest version of Unicode.
+latest version of Unicode (UCD.v13.0).
+See [](https://).
 
 
