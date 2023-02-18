@@ -17,7 +17,8 @@ my @ofils;
 my %bracket-sets = [
     # left => right
     '|' => '|',
-    0xff62.chr => 0xff63.chr,
+    # don't create the other table for now
+    #0xff62.chr => 0xff63.chr,
 ];
 
 =begin comment
@@ -58,28 +59,36 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
 
     $fh.print: qq:to/HERE/;
 
-    =begin table :caption<Opener Graphemes>
-    Char | Hex | Char | Hex | Char | Hex | Char | Hex
-    =====+=====+======+=====+======+=====+======+====
+    =begin table :caption<Bracket pairs>
+     Char | Char | Hex  | Hex  | Char | Char | Hex  | Hex
+    ======+======+======+======+======+======+======+======
     HERE
 
     my $n   = @bracket-chars.elems;
-    my $inc = 4;
+    my $inc = 8;
     # wee need to march through the list $inc elements at a time
     # a hack for now
 
-    loop (my $i = 0;  $i < $n; $i += 4)  {
+    loop (my $i = 0;  $i < $n; $i += $inc)  {
         my $i0 = $i;
         my $i1 = $i+1;
         my $i2 = $i+2;
         my $i3 = $i+3;
+        my $i4 = $i+4;
+        my $i5 = $i+5;
+        my $i6 = $i+6;
+        my $i7 = $i+7;
 
-        my ($a, $b, $c, $d);
+        my ($a, $b, $c, $d, $e, $f, $g, $h);
 
         $a = $i0 < $n ?? @bracket-chars[$i0] !! '';
         $b = $i1 < $n ?? @bracket-chars[$i1] !! '';
         $c = $i2 < $n ?? @bracket-chars[$i2] !! '';
         $d = $i3 < $n ?? @bracket-chars[$i3] !! '';
+        $e = $i4 < $n ?? @bracket-chars[$i4] !! '';
+        $f = $i5 < $n ?? @bracket-chars[$i5] !! '';
+        $g = $i6 < $n ?? @bracket-chars[$i6] !! '';
+        $h = $i7 < $n ?? @bracket-chars[$i7] !! '';
 
         #=begin comment
         if 1 {
@@ -88,11 +97,14 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
           #.ord    : '{$a.ord}'
           #.WHAT   : '{$a.WHAT}'
         note qq:to/HERE/;
-        == Item '$a'
+        == Item $i: '$a'
           .^name  : '{$a.^name}'
           .uniname: '{$a.uniname}'
           .uniprop: '{$a.uniprop}'
         HERE
+        note("  .Str: '$a'") if $a ~~ Str;
+        note("  .Str: '{$a.chr}'") if $a ~~ Int;
+
         next;
         }
         #=end comment
@@ -133,8 +145,8 @@ BEGIN {
     @bracket-chars = [
          #'<'.ord, '>', '[', ']', '(', ')', '{', '}' 
          '<', '>', '[', ']', '(', ')', '{', '}', 
-         0x0028, 0x003C, 0x005B, 0x007B, 
-         0x00AB, 0x0F3A, 0x0F3C, 0x169B
+         0x0028, 0x0029, 0x003C, 0x003E, 0x005B, 0x005D, 
+         0x007B, 0x007D, 0x00AB, 0x00BB, 0x0F3A, 0x0F3B, 0x0F3C, 0x0F3D, 0x169B, 0x169C,
     ];
     #>;
 

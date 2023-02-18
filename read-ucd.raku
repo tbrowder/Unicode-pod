@@ -43,7 +43,7 @@ for 0x0000..0x3000 -> $intchar {
 
     my $proplist = $c.uniprop;
     if $uname ~~ /:i control/ {
-        if %aliases{$c} {
+        if %aliases{$c}:exists {
             $uname ~=  " ; alias: {%aliases{$c}}";
         }
     }
