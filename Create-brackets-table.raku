@@ -65,7 +65,7 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
     HERE
 
     my $n   = @bracket-chars.elems;
-    my $inc = 8;
+    my $inc = 4;
     # we need to march through the list $inc elements at a time
 
     loop (my $i = 0;  $i < $n; $i += $inc)  {
@@ -73,39 +73,31 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
         my $i1 = $i+1;
         my $i2 = $i+2;
         my $i3 = $i+3;
-        my $i4 = $i+4;
-        my $i5 = $i+5;
-        my $i6 = $i+6;
-        my $i7 = $i+7;
 
-        my ($a, $b, $c, $d, $e, $f, $g, $h);
+        my ($ai, $bi, $ci, $di); # Int value
+        my ($as, $bs, $cs, $ds); # Str value
+        my ($ap, $bp, $cp, $dp); # Str value enclosed in pipes
+        my ($ax, $bx, $cx, $dx); # hex value
 
-        $a = $i0 < $n ?? @bracket-chars[$i0] !! '';
-        $b = $i1 < $n ?? @bracket-chars[$i1] !! '';
-        $c = $i2 < $n ?? @bracket-chars[$i2] !! '';
-        $d = $i3 < $n ?? @bracket-chars[$i3] !! '';
-        $e = $i4 < $n ?? @bracket-chars[$i4] !! '';
-        $f = $i5 < $n ?? @bracket-chars[$i5] !! '';
-        $g = $i6 < $n ?? @bracket-chars[$i6] !! '';
-        $h = $i7 < $n ?? @bracket-chars[$i7] !! '';
+        $ai = $i0 < $n ?? @bracket-chars[$i0] !! '';
+        $bi = $i1 < $n ?? @bracket-chars[$i1] !! '';
+        $ci = $i2 < $n ?? @bracket-chars[$i2] !! '';
+        $di = $i3 < $n ?? @bracket-chars[$i3] !! '';
 
-        my $aa = $a ?? $a.chr !! '';
-        my $bb = $b ?? $b.chr !! '';
-        my $cc = $c ?? $c.chr !! '';
-        my $dd = $d ?? $d.chr !! '';
-        my $ee = $e ?? $e.chr !! '';
-        my $ff = $f ?? $f.chr !! '';
-        my $gg = $g ?? $g.chr !! '';
-        my $hh = $h ?? $h.chr !! '';
+        $as = $ai ?? $ai.chr !! '';
+        $bs = $bi ?? $bi.chr !! '';
+        $cs = $ci ?? $ci.chr !! '';
+        $ds = $di ?? $di.chr !! '';
 
-        $aa = sprintf("%s%s%s", $lb, $aa, $rb) if $aa;
-        $bb = sprintf("%s%s%s", $lb, $bb, $rb) if $bb;
-        $cc = sprintf("%s%s%s", $lb, $cc, $rb) if $cc;
-        $dd = sprintf("%s%s%s", $lb, $dd, $rb) if $dd;
-        $ee = sprintf("%s%s%s", $lb, $ee, $rb) if $ee;
-        $ff = sprintf("%s%s%s", $lb, $ff, $rb) if $ff;
-        $gg = sprintf("%s%s%s", $lb, $gg, $rb) if $gg;
-        $hh = sprintf("%s%s%s", $lb, $hh, $rb) if $hh;
+        $ax = $ai ?? int2hex($ai) !! '';
+        $bx = $bi ?? int2hex($bi) !! '';
+        $cx = $ci ?? int2hex($ci) !! '';
+        $dx = $di ?? int2hex($di) !! '';
+
+        $ap = sprintf("%s%s%s", $lb, $as, $rb);
+        $bp = sprintf("%s%s%s", $lb, $bs, $rb);
+        $cp = sprintf("%s%s%s", $lb, $cs, $rb);
+        $dp = sprintf("%s%s%s", $lb, $ds, $rb);
 
         =begin comment
         say "|$a|";
@@ -113,10 +105,16 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
         last;
         =end comment
 
-        $fh.say: "$aa | $a | $bb | $b | $cc | $c | $dd | $d";
-        $fh.say: "--------+---------+---------+---------+---------+---------+---------+--------";
+        # first pair
+        $fh.print: "$ap | $bp | $ax | $bx | ";
+        # second pair
+        $fh.say:   "$cp | $dp | $cx | $dx |";
+        # underline first pair
+        $fh.print: "--------+---------+---------+---------+";
+        # underline second pair
+        $fh.say:   "--------+---------+---------+---------";
 
-        last if !$d;
+        last if !$di;
     }
 
     $fh.say: "=end table";
@@ -125,8 +123,11 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
     $fh.close;
 }
 
-sub int2hex($i) {
-    my $h = sprintf "", $i;
+sub int2hex(Int $i --> Str) {
+    # convert an Int to hex format
+    my $s = sprintf '%#.4X', $i;
+    $s ~~ s/X/x/;
+    $s
 }
 
 BEGIN {
