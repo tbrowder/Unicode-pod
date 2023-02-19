@@ -14,8 +14,9 @@ my @c = [
     '<', '>', '[', ']', '(', ')', '{', '}', 
 ];
 
-for @c -> $c {
-    my $i = $c.ord;
+for @c -> $char {
+    # convert to Int
+    my $i = $char.ord;
     # convert an Int to hex format
     my $s = sprintf '%#.4X', $i;
     $s ~~ s/X/x/;
