@@ -143,6 +143,10 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
     $fh.close;
 }
 
+sub int2hex($i) {
+    my $h = sprintf "", $i;
+}
+
 BEGIN {
     # contents of the following array are the hex values of the HLL::Grammar
     # '$brackets' chars
@@ -150,6 +154,16 @@ BEGIN {
         # following are the original chars, but we translate them into hex codepoints
         # in program 'conv-brackets.raku'
         #   '<', '>', '[', ']', '(', ')', '{', '}', 
+        # '<' = '0X003C'
+        # '>' = '0X003E'
+        # '[' = '0X005B'
+        # ']' = '0X005D'
+        # '(' = '0X0028'
+        # ')' = '0X0029'
+        # '{' = '0X007B'
+        # '}' = '0X007D'
+
+        0x003C 0x003E 0x005B 0x005D 0x0028 0x0029 0x007B 0x007D
 
         0x0028, 0x0029, 0x003C, 0x003E, 0x005B, 0x005D, 
         0x007B, 0x007D, 0x00AB, 0x00BB, 0x0F3A, 0x0F3B, 0x0F3C, 0x0F3D, 0x169B, 0x169C,

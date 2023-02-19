@@ -65,7 +65,7 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
 
     my $n   = @opener-chars.elems;
     my $inc = 4;
-    # wee need to march through the list $inc elements at a time
+    # we need to march through the list $inc elements at a time
     # a hack for now
 
     loop (my $i = 0;  $i < $n; $i += 4)  {
