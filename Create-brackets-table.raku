@@ -66,8 +66,7 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
 
     my $n   = @bracket-chars.elems;
     my $inc = 8;
-    # wee need to march through the list $inc elements at a time
-    # a hack for now
+    # we need to march through the list $inc elements at a time
 
     loop (my $i = 0;  $i < $n; $i += $inc)  {
         my $i0 = $i;
@@ -89,23 +88,6 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
         $f = $i5 < $n ?? @bracket-chars[$i5] !! '';
         $g = $i6 < $n ?? @bracket-chars[$i6] !! '';
         $h = $i7 < $n ?? @bracket-chars[$i7] !! '';
-
-        if 0 {
-            #.Int    : '{$a.Int}'
-            #.chr    : '{$a.chr}'
-            #.ord    : '{$a.ord}'
-            #.WHAT   : '{$a.WHAT}'
-            note qq:to/HERE/;
-            == Item $i: '$a'
-              .^name  : '{$a.^name}'
-              .uniname: '{$a.uniname}'
-              .uniprop: '{$a.uniprop}'
-            HERE
-            note("  .Str: '$a'") if $a ~~ Str;
-            note("  .Str: '{$a.chr}'") if $a ~~ Int;
-
-            next;
-        }
 
         my $aa = $a ?? $a.chr !! '';
         my $bb = $b ?? $b.chr !! '';

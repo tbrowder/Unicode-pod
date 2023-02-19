@@ -15,6 +15,9 @@ my @c = [
 ];
 
 for @c -> $c {
-    my $s = sprintf '%#.4X', $c.ord;
+    my $i = $c.ord;
+    # convert an Int to hex format
+    my $s = sprintf '%#.4X', $i;
+    $s ~~ s/X/x/;
     say "'$c' = '$s'";
 }
