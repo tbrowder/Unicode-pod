@@ -61,10 +61,10 @@ sub write-brackets-pod6-file(:$f, :$lb?, :$rb?, :$reorder?) {
     HERE
 
     if $reorder {
-        $fh.print: "\nThe bracket pairs are arranged in order of the codepoint of the opening bracket."; 
+        $fh.print: "\nThe bracket pairs are arranged in order of the codepoint of the opening bracket. "; 
     }
     else {
-        $fh.print: "\nThe data are arranged in the order found in the source string"
+        $fh.print: "\nThe data are arranged in the order found in the source string. ";
     }
 
     $fh.print: qq:to/HERE/;
