@@ -5,12 +5,17 @@ my @bracket-chars;
 
 if !@*ARGS {
     say qq:to/HERE/;
-    Usage: {$*PROGRAM.IO.basename} go
+    Usage: {$*PROGRAM.IO.basename} go | reorder
 
     Writes the HLL::Grammar '\$brackets' chars into a Pod6 table.
     HERE
     exit;
 }
+
+my $reorder = 0;
+my $arg = @*ARGS.shift;
+++$reorder if $arg ~~ /:i r/;
+say "Reorder = $reorder";
 
 my @ofils;
 
@@ -32,12 +37,16 @@ my $i = 0;
 for %bracket-sets.kv -> $lb is copy, $rb is copy {
     ++$i;
     my $f = "brackets-{$i}.pod6";
+    if $reorder {
+        $f = "brackets-{$i}-reordered.pod6";
+    }
+
     if $lb ~~ /'|'/ {
         # need to escape it for doc site
         $lb = '\\|';
         $rb = $lb
     }
-    write-opener-pod6-file :$f, :$lb, :$rb;
+    write-opener-pod6-file :$f, :$lb, :$rb, :$reorder;
     @ofils.append: $f;
 }
 
@@ -53,18 +62,36 @@ my $lb = '|';
 my $rb = '|';
 =end comment
 
-sub write-opener-pod6-file(:$f, :$lb, :$rb) {
+sub write-opener-pod6-file(:$f, :$lb?, :$rb?, :$reorder?) {
 
     my $fh = open $f, :w;
 
     $fh.print: qq:to/HERE/;
 
     =begin table :caption<Bracket pairs>
-     Char | Char | Hex  | Hex  | Char | Char | Hex  | Hex
+     LChar | RChar | LHex  | RHex  | LChar | RChar | LHex  | RHex
     ======+======+======+======+======+======+======+======
     HERE
 
-    my $n   = @bracket-chars.elems;
+    my $n = @bracket-chars.elems;
+    say "Found $n bracket pair elements ({$n div 2} pairs)";
+
+    if $reorder {
+        my %h; # keyed by left bracket int, value is right bracket int
+        loop (my $i = 0;  $i < $n; $i += 2)  {
+            my Int $Li = @bracket-chars[$i];
+            my Int $Ri = @bracket-chars[$i+1];
+            %h{$Li} = $Ri;
+        }
+        my @k = %h.keys.sort({$^a <=> $^b});
+        @bracket-chars = [];
+        for @k -> $k {
+            my $v = %h{$k};
+            @bracket-chars.push: $k;
+            @bracket-chars.push: $v;
+        }
+    }
+
     my $inc = 4;
     # we need to march through the list $inc elements at a time
 
@@ -94,10 +121,10 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
         $cx = $ci ?? int2hex($ci) !! '';
         $dx = $di ?? int2hex($di) !! '';
 
-        $ap = sprintf("%s%s%s", $lb, $as, $rb);
-        $bp = sprintf("%s%s%s", $lb, $bs, $rb);
-        $cp = sprintf("%s%s%s", $lb, $cs, $rb);
-        $dp = sprintf("%s%s%s", $lb, $ds, $rb);
+        $ap = $ai ?? sprintf("%s%s%s", $lb, $as, $rb) !! '';
+        $bp = $bi ?? sprintf("%s%s%s", $lb, $bs, $rb) !! '';
+        $cp = $ci ?? sprintf("%s%s%s", $lb, $cs, $rb) !! '';
+        $dp = $di ?? sprintf("%s%s%s", $lb, $ds, $rb) !! '';
 
         =begin comment
         say "|$a|";
@@ -108,7 +135,7 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
         # first pair
         $fh.print: "$ap | $bp | $ax | $bx | ";
         # second pair
-        $fh.say:   "$cp | $dp | $cx | $dx |";
+        $fh.say:   "$cp | $dp | $cx | $dx";
         # underline first pair
         $fh.print: "--------+---------+---------+---------+";
         # underline second pair
@@ -123,7 +150,7 @@ sub write-opener-pod6-file(:$f, :$lb, :$rb) {
     $fh.close;
 }
 
-sub int2hex(Int $i --> Str) {
+sub int2hex($i --> Str) {
     # convert an Int to hex format
     my $s = sprintf '%#.4X', $i;
     $s ~~ s/X/x/;
