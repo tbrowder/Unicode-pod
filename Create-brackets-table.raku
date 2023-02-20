@@ -45,6 +45,32 @@ sub write-brackets-pod6-file(:$f, :$lb?, :$rb?, :$reorder?) {
     my $fh = open $f, :w;
 
     $fh.print: qq:to/HERE/;
+    =begin pod :kind("Language") :subkind("Language") :category("reference")
+    
+    =TITLE Brackets
+    
+    =SUBTITLE Valid opening/closing paired delimiters
+     
+    The following table shows all of the valid graphemes usable as opening
+    and closing paired delimiters in such constructs as I<Pod6 declarator blocks>. 
+    Note they are shown between pipe symbols so the extra bounding space for any wide 
+    characters can be seen.
+     
+    The data source for the table is the I<\$brackets> string defined in the 
+    I<HLL::Grammar> module in the I<github.com/Raku/nqp> repository. 
+    HERE
+
+    if $reorder {
+        $fh.print: "\nThe bracket pairs are arranged in order of the codepoint of the opening bracket."; 
+    }
+    else {
+        $fh.print: "\nThe data are arranged in the order found in the source string"
+    }
+
+    $fh.print: qq:to/HERE/;
+    Each opening bracket is shown in its printed form followed by its 
+    paired closing bracket. Each pair is then followed by the codepoint 
+    values of the pair. There are two sets of bracket pairs shown per table row.
 
     =begin table :caption<Bracket pairs>
      LChar | RChar | LHex  | RHex  | LChar | RChar | LHex  | RHex

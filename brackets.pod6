@@ -11,9 +11,10 @@ characters can be seen.
  
 The data source for the table is the I<$brackets> string defined in the 
 I<HLL::Grammar> module in the I<github.com/Raku/nqp> repository. 
+
 The data are arranged in the order found in the source stringEach opening bracket is shown in its printed form followed by its 
 paired closing bracket. Each pair is then followed by the codepoint 
-values of the pair. There are two pairs of bracket pairs shown per table row.
+values of the pair. There are two sets of bracket pairs shown per table row.
 
 =begin table :caption<Bracket pairs>
  LChar | RChar | LHex  | RHex  | LChar | RChar | LHex  | RHex
