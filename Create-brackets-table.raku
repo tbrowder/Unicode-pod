@@ -19,50 +19,28 @@ say "Reorder = $reorder";
 
 my @ofils;
 
-my %bracket-sets = [
-    # left => right
-    '|' => '|',
-    # don't create the other table for now
-    #0xff62.chr => 0xff63.chr,
-];
+my $lb = '|';
+my $rb = '|';
 
-=begin comment
-say "bracket sets: L, R";
-for %bracket-sets.kv -> $lb, $rb {
-    say "Left: '$lb'; Right: '$rb'";
+my $f = "brackets.pod6";
+if $reorder {
+    $f = "brackets-reordered.pod6";
 }
-=end comment
 
-my $i = 0;
-for %bracket-sets.kv -> $lb is copy, $rb is copy {
-    ++$i;
-    my $f = "brackets-{$i}.pod6";
-    if $reorder {
-        $f = "brackets-{$i}-reordered.pod6";
-    }
-
-    if $lb ~~ /'|'/ {
-        # need to escape it for doc site
-        $lb = '\\|';
-        $rb = $lb
-    }
-    write-opener-pod6-file :$f, :$lb, :$rb, :$reorder;
-    @ofils.append: $f;
+if $lb ~~ /'|'/ {
+    # need to escape it for doc site
+    $lb = '\\|';
+    $rb = $lb
 }
+write-brackets-pod6-file :$f, :$lb, :$rb, :$reorder;
+@ofils.append: $f;
 
 say "Normal end.";
 my $s = @ofils.elems > 1 ?? 's' !! '';
 say "See output file$s:";
 say "  $_" for @ofils;
 
-=begin comment
-my $lb = 0xff62.chr;
-my $rb = 0xff63.chr;
-my $lb = '|';
-my $rb = '|';
-=end comment
-
-sub write-opener-pod6-file(:$f, :$lb?, :$rb?, :$reorder?) {
+sub write-brackets-pod6-file(:$f, :$lb?, :$rb?, :$reorder?) {
 
     my $fh = open $f, :w;
 
