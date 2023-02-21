@@ -72,7 +72,7 @@ sub write-brackets-pod6-file(:$f, :$lb?, :$rb?, :$reorder?) {
     }
 
     $fh.print: qq:to/HERE/;
-    Each opening bracket is shown in its printed form followed by its 
+    \nEach opening bracket is shown in its printed form followed by its 
     paired closing bracket. Each pair is then followed by its codepoints. 
     There are two sets of bracket pairs shown per table row.
 

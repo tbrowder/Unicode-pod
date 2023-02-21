@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 
-my $ucd-ver = '10.0'; # use same as rakudo
+my $ucd-ver = '15.0'; # use same as rakudo
 my $ucd-dir = "./UCD.v{$ucd-ver}";
 my $ucd     = 'UnicodeData.txt';
 my $fi = "$ucd-dir/$ucd";
