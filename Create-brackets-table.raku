@@ -14,7 +14,11 @@ if !@*ARGS {
 
 my $reorder = 0;
 my $arg = @*ARGS.shift;
-++$reorder if $arg ~~ /:i r/;
+if $arg ~~ /:i r/ {
+    say "Option 'reorder' is not active at the moment";
+    exit;
+    ++$reorder;
+}
 say "Reorder = $reorder";
 
 my @ofils;
@@ -69,8 +73,8 @@ sub write-brackets-pod6-file(:$f, :$lb?, :$rb?, :$reorder?) {
 
     $fh.print: qq:to/HERE/;
     Each opening bracket is shown in its printed form followed by its 
-    paired closing bracket. Each pair is then followed by the codepoint 
-    values of the pair. There are two sets of bracket pairs shown per table row.
+    paired closing bracket. Each pair is then followed by its codepoints. 
+    There are two sets of bracket pairs shown per table row.
 
     =begin table :caption<Bracket pairs>
      LChar | RChar | LHex  | RHex  | LChar | RChar | LHex  | RHex
