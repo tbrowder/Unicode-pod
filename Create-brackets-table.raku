@@ -3,11 +3,16 @@
 # global array defined in the BEGIN block at the end:
 my @bracket-chars;
 
+my $f = "brackets.pod6";
 if !@*ARGS {
     say qq:to/HERE/;
     Usage: {$*PROGRAM.IO.basename} go | reorder
 
     Writes the HLL::Grammar '\$brackets' chars into a Pod6 table.
+
+    If the 'reorder' mode is chosen, the output table is sorted
+    by the value of the codepoint of the opening character.
+    Otherwise, the order of the source definition is used.
     HERE
     exit;
 }
@@ -15,8 +20,6 @@ if !@*ARGS {
 my $reorder = 0;
 my $arg = @*ARGS.shift;
 if $arg ~~ /:i r/ {
-    say "Option 'reorder' is not active at the moment";
-    exit;
     ++$reorder;
 }
 say "Reorder = $reorder";
@@ -26,13 +29,12 @@ my @ofils;
 my $lb = '|';
 my $rb = '|';
 
-my $f = "brackets.pod6";
 if $reorder {
     $f = "brackets-reordered.pod6";
 }
 
 if $lb ~~ /'|'/ {
-    # need to escape it for doc site
+    # need to escape the pipe for the doc site
     $lb = '\\|';
     $rb = $lb
 }
@@ -65,14 +67,18 @@ sub write-brackets-pod6-file(:$f, :$lb?, :$rb?, :$reorder?) {
     HERE
 
     if $reorder {
-        $fh.print: "\nThe bracket pairs are arranged in order of the codepoint of the opening bracket. "; 
+        $fh.print: qq:to/HERE/;
+        \nThe bracket pairs are arranged in order of the codepoint of the opening bracket. 
+        HERE
     }
     else {
-        $fh.print: "\nThe data are arranged in the order found in the source string. ";
+        $fh.print: qq:to/HERE/;
+        \nThe data are arranged in the order found in the source string.
+        HERE
     }
 
     $fh.print: qq:to/HERE/;
-    \nEach opening bracket is shown in its printed form followed by its 
+    Each opening bracket is shown in its printed form followed by its 
     paired closing bracket. Each pair is then followed by its codepoints. 
     There are two sets of bracket pairs shown per table row.
 
